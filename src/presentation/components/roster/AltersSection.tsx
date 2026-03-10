@@ -18,6 +18,7 @@ interface AltersSectionProps {
   alterRole: Role;
   setAlterRole: (role: Role) => void;
   isPending: boolean;
+  isVerified: boolean;
   handleAddAlter: () => void;
   handleAlterRoleChange: (id: string, role: Role) => void;
   handleRemoveAlter: (id: string) => void;
@@ -33,6 +34,7 @@ export function AltersSection({
   alterRole,
   setAlterRole,
   isPending,
+  isVerified,
   handleAddAlter,
   handleAlterRoleChange,
   handleRemoveAlter,
@@ -51,6 +53,7 @@ export function AltersSection({
           key={alter.id}
           alter={alter}
           isPending={isPending}
+          isVerified={isVerified}
           onPromote={() => handlePromoteAlter(alter.id)}
           onRemove={() => handleRemoveAlter(alter.id)}
           onRoleChange={(role) => handleAlterRoleChange(alter.id, role)}

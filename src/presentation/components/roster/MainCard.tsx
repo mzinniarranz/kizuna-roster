@@ -9,11 +9,12 @@ import { WOW_CLASS_COLOR, WOW_CLASS_LABEL, ROLE_ORDER, ROLE_LABEL } from "./wowC
 interface MainCardProps {
   character: Character;
   isPending: boolean;
+  isVerified: boolean;
   onRemove: () => void;
   onRoleChange: (role: Role) => void;
 }
 
-export function MainCard({ character, isPending, onRemove, onRoleChange }: MainCardProps) {
+export function MainCard({ character, isPending, isVerified, onRemove, onRoleChange }: MainCardProps) {
   const t = useTranslations("CharacterSelector");
 
   return (
@@ -26,6 +27,9 @@ export function MainCard({ character, isPending, onRemove, onRoleChange }: MainC
             style={{ backgroundColor: WOW_CLASS_COLOR[character.wowClass] }}
           />
           <span className="text-sm text-white truncate">{character.name}</span>
+          {isVerified && (
+            <span className="text-blue-400 text-xs leading-none flex-shrink-0">✓</span>
+          )}
           <span
             className="text-xs ml-1 flex-shrink-0"
             style={{ color: WOW_CLASS_COLOR[character.wowClass] }}

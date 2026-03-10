@@ -14,6 +14,7 @@ interface CharacterSelectorProps {
   userMain: Character | null;
   userAlters: Character[];
   rosterBlizzardIds: Set<string>;
+  isVerified: boolean;
 }
 
 export function CharacterSelector({
@@ -21,6 +22,7 @@ export function CharacterSelector({
   userMain,
   userAlters,
   rosterBlizzardIds,
+  isVerified,
 }: CharacterSelectorProps) {
   const t = useTranslations("CharacterSelector");
   const {
@@ -84,6 +86,7 @@ export function CharacterSelector({
         <MainCard
           character={userMain}
           isPending={isPending}
+          isVerified={isVerified}
           onRemove={handleRemove}
           onRoleChange={handleRoleChange}
         />
@@ -120,6 +123,7 @@ export function CharacterSelector({
           alterRole={alterRole}
           setAlterRole={setAlterRole}
           isPending={isPending}
+          isVerified={isVerified}
           handleAddAlter={handleAddAlter}
           handleAlterRoleChange={handleAlterRoleChange}
           handleRemoveAlter={handleRemoveAlter}

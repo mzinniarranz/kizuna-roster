@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import BattleNet from "next-auth/providers/battlenet";
 
+import { prisma } from "@infrastructure/db/prisma";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: false,
   pages: {
@@ -25,6 +27,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       if (profile) {
         token.battleTag = (profile as { battletag?: string }).battletag;
+      }
+      if (account && profile) {
+        const battleTag = (profile as { battletag?: string }).battletag;
+        if (battleTag) {
+          await prisma.userProfile.upsert({
+            where: { blizzardId: account.providerAccountId },
+            update: { battleTag },
+            create: { blizzardId: account.providerAccountId, battleTag },
+          });
+        }
       }
       return token;
     },

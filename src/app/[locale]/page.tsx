@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { getRoster } from "@application/roster/getRoster";
 import { getRosterComposition } from "@application/roster/getRosterComposition";
+import { getVerifiedBlizzardUserIds } from "@application/discord/getVerifiedBlizzardUserIds";
 import { prismaCharacterRepository } from "@infrastructure/character/prismaCharacterRepository";
 import { RosterSidebar } from "@presentation/components/roster/RosterSidebar";
 import { CompositionTable } from "@presentation/components/roster/CompositionTable";
@@ -11,9 +12,10 @@ export default async function HomePage() {
   const session = await auth();
   const sessionWithToken = session as typeof session & { userId?: string };
 
-  const [characters, composition] = await Promise.all([
+  const [characters, composition, verifiedUserIds] = await Promise.all([
     getRoster(prismaCharacterRepository),
     getRosterComposition(prismaCharacterRepository),
+    getVerifiedBlizzardUserIds(),
   ]);
 
   return (
@@ -23,6 +25,7 @@ export default async function HomePage() {
         <RosterSidebar
           characters={characters}
           userId={sessionWithToken?.userId}
+          verifiedBlizzardUserIds={[...verifiedUserIds]}
         />
       </div>
       <main

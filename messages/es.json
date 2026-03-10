@@ -24,6 +24,9 @@
   "Footer": {
     "license": "Licencia MIT ©2026"
   },
+  "CharacterCard": {
+    "verifiedTooltip": "Discord vinculado"
+  },
   "CharacterSelector": {
     "yourCharacter": "Tu personaje",
     "main": "Principal",

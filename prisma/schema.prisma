@@ -8,14 +8,59 @@ datasource db {
   directUrl = env("NEON_DATABASE_URL_UNPOOLED")
 }
 
+model UserProfile {
+  blizzardId  String       @id
+  battleTag   String       @unique
+  discordLink DiscordLink?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model DiscordLink {
+  id             String      @id @default(cuid())
+  discordId      String      @unique
+  discordUser    String
+  blizzardUserId String      @unique
+  userProfile    UserProfile @relation(fields: [blizzardUserId], references: [blizzardId])
+  createdAt      DateTime    @default(now())
+}
+
 model Character {
-  id         String   @id @default(cuid())
-  name       String
-  realmSlug  String
-  wowClass   String
-  role       String
-  blizzardId String   @unique
-  addedById  String
-  isMain     Boolean  @default(false)
-  createdAt  DateTime @default(now())
+  id          String       @id @default(cuid())
+  name        String
+  realmSlug   String
+  wowClass    String
+  role        String
+  blizzardId  String       @unique
+  addedById   String
+  isMain      Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  attendances Attendance[]
+}
+
+model RaidEvent {
+  id           String       @id @default(cuid())
+  title        String
+  date         DateTime
+  discordMsgId String?
+  channelId    String?
+  createdAt    DateTime     @default(now())
+  attendances  Attendance[]
+}
+
+model Attendance {
+  id          String           @id @default(cuid())
+  eventId     String
+  event       RaidEvent        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  characterId String
+  character   Character        @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  status      AttendanceStatus
+  updatedAt   DateTime         @updatedAt
+
+  @@unique([eventId, characterId])
+}
+
+enum AttendanceStatus {
+  YES
+  NO
 }

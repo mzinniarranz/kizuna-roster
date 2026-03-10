@@ -11,6 +11,7 @@ import { CharacterSelector } from "./CharacterSelector";
 interface RosterSidebarProps {
   characters: Character[];
   userId?: string;
+  verifiedBlizzardUserIds: string[];
 }
 
 function EyeIcon() {
@@ -49,12 +50,13 @@ function EyeOffIcon() {
   );
 }
 
-export function RosterSidebar({ characters, userId }: RosterSidebarProps) {
+export function RosterSidebar({ characters, userId, verifiedBlizzardUserIds }: RosterSidebarProps) {
   const t = useTranslations("RosterGrid");
   const tRole = useTranslations("RoleLabel");
 
   const [showAlters, setShowAlters] = useState(true);
 
+  const verifiedSet = new Set(verifiedBlizzardUserIds);
   const mainCharacters = characters.filter((c) => c.isMain);
 
   const userMain = userId
@@ -64,6 +66,7 @@ export function RosterSidebar({ characters, userId }: RosterSidebarProps) {
     ? characters.filter((c) => c.addedById === userId && !c.isMain)
     : [];
   const rosterBlizzardIds = new Set(characters.map((c) => c.blizzardId));
+  const isUserVerified = userId ? verifiedSet.has(userId) : false;
 
   const byRole = (role: Role) =>
     mainCharacters.filter((character) => character.role === role);
@@ -106,6 +109,7 @@ export function RosterSidebar({ characters, userId }: RosterSidebarProps) {
             userMain={userMain}
             userAlters={userAlters}
             rosterBlizzardIds={rosterBlizzardIds}
+            isVerified={isUserVerified}
           />
         )}
 
@@ -180,6 +184,9 @@ export function RosterSidebar({ characters, userId }: RosterSidebarProps) {
                           style={{ backgroundColor: WOW_CLASS_COLOR[main.wowClass] }}
                         />
                         <span className="text-sm text-white truncate">{main.name}</span>
+                        {verifiedSet.has(main.addedById) && (
+                          <span className="text-blue-400 text-xs leading-none flex-shrink-0">✓</span>
+                        )}
                         <span
                           className="ml-auto text-xs flex-shrink-0"
                           style={{ color: WOW_CLASS_COLOR[main.wowClass] }}

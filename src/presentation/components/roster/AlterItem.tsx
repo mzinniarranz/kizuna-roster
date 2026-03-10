@@ -9,6 +9,7 @@ import { WOW_CLASS_COLOR, WOW_CLASS_LABEL, ROLE_ORDER, ROLE_LABEL } from "./wowC
 interface AlterItemProps {
   alter: Character;
   isPending: boolean;
+  isVerified: boolean;
   onPromote: () => void;
   onRemove: () => void;
   onRoleChange: (role: Role) => void;
@@ -17,6 +18,7 @@ interface AlterItemProps {
 export function AlterItem({
   alter,
   isPending,
+  isVerified,
   onPromote,
   onRemove,
   onRoleChange,
@@ -41,6 +43,9 @@ export function AlterItem({
             style={{ backgroundColor: alterColor }}
           />
           <span className="text-sm text-white truncate">{alter.name}</span>
+          {isVerified && (
+            <span className="text-blue-400 text-xs leading-none flex-shrink-0">✓</span>
+          )}
           <span className="text-xs text-white/40 flex-shrink-0">{ROLE_LABEL[alter.role]}</span>
           <span className="text-xs flex-shrink-0" style={{ color: alterColor }}>
             · {WOW_CLASS_LABEL[alter.wowClass]}

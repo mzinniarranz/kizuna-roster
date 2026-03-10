@@ -1,13 +1,15 @@
 import { useTranslations } from "next-intl";
+
 import { Character, Role } from "@domain/character/Character";
 import { CharacterCard } from "./CharacterCard";
 
 interface RoleColumnProps {
   role: Role;
   characters: Character[];
+  verifiedUserIds: Set<string>;
 }
 
-export function RoleColumn({ role, characters }: RoleColumnProps) {
+export function RoleColumn({ role, characters, verifiedUserIds }: RoleColumnProps) {
   const t = useTranslations("RoleLabel");
 
   return (
@@ -20,7 +22,11 @@ export function RoleColumn({ role, characters }: RoleColumnProps) {
       </div>
       <div className="flex flex-col gap-1">
         {characters.map((character) => (
-          <CharacterCard key={character.id} character={character} />
+          <CharacterCard
+            key={character.id}
+            character={character}
+            isVerified={verifiedUserIds.has(character.addedById)}
+          />
         ))}
       </div>
     </div>

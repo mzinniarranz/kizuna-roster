@@ -1,13 +1,15 @@
 import { useTranslations } from "next-intl";
+
 import { Character, Role } from "@domain/character/Character";
 import { ROLE_ORDER } from "./wowClassConfig";
 import { RoleColumn } from "./RoleColumn";
 
 interface RosterGridProps {
   characters: Character[];
+  verifiedUserIds: Set<string>;
 }
 
-export function RosterGrid({ characters }: RosterGridProps) {
+export function RosterGrid({ characters, verifiedUserIds }: RosterGridProps) {
   const t = useTranslations("RosterGrid");
 
   const byRole = (role: Role) =>
@@ -23,7 +25,12 @@ export function RosterGrid({ characters }: RosterGridProps) {
       </div>
       <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
         {ROLE_ORDER.map((role) => (
-          <RoleColumn key={role} role={role} characters={byRole(role)} />
+          <RoleColumn
+            key={role}
+            role={role}
+            characters={byRole(role)}
+            verifiedUserIds={verifiedUserIds}
+          />
         ))}
       </div>
     </div>
