@@ -4,6 +4,8 @@ import { getRosterComposition } from "@application/roster/getRosterComposition";
 import { prismaCharacterRepository } from "@infrastructure/character/prismaCharacterRepository";
 import { RosterSidebar } from "@presentation/components/roster/RosterSidebar";
 import { CompositionTable } from "@presentation/components/roster/CompositionTable";
+import { RosterPoller } from "@presentation/components/roster/RosterPoller";
+import { AppFooter } from "@presentation/components/AppFooter";
 
 export default async function HomePage() {
   const session = await auth();
@@ -16,6 +18,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex h-screen bg-gray-950 overflow-hidden">
+      <RosterPoller />
       <div className="w-64 flex-shrink-0 border-r border-white/10 overflow-hidden">
         <RosterSidebar
           characters={characters}
@@ -24,6 +27,7 @@ export default async function HomePage() {
       </div>
       <main className="flex-1 overflow-y-auto px-10 py-10 flex flex-col gap-10 items-center justify-start">
         <CompositionTable composition={composition} />
+        <AppFooter />
       </main>
     </div>
   );

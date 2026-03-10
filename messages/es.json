@@ -1,7 +1,10 @@
 {
   "RosterGrid": {
     "title": "Roster de Raid",
-    "players": "{count, plural, one {# jugador} other {# jugadores}}"
+    "players": "{count, plural, one {# jugador} other {# jugadores}}",
+    "refresh": "Actualizar roster",
+    "showAlters": "Mostrar alters",
+    "hideAlters": "Ocultar alters"
   },
   "RoleLabel": {
     "TANK": "Tanques",
@@ -17,5 +20,24 @@
     "title": "Composición",
     "columnClass": "Clase",
     "total": "Total"
+  },
+  "Footer": {
+    "license": "Licencia MIT ©2026"
+  },
+  "CharacterSelector": {
+    "yourCharacter": "Tu personaje",
+    "main": "Principal",
+    "changeCharacter": "Cambiar tu personaje",
+    "addToRoster": "Añadir al roster",
+    "adding": "Añadiendo...",
+    "addManually": "+ Añadir manualmente",
+    "addManuallyTooltip": "Si tu personaje no aparece en la lista, añádelo manualmente.",
+    "characterNamePlaceholder": "Nombre del personaje",
+    "cancel": "Cancelar",
+    "loading": "Cargando personajes...",
+    "loadErrorTitle": "No se pudieron cargar los personajes de la hermandad",
+    "promoteToMain": "Hacer principal",
+    "alters": "Alters",
+    "addAlter": "Añadir alter"
   }
 }

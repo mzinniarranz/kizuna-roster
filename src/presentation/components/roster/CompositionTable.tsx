@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Role, WowClass } from "@domain/character/Character";
 import { RosterComposition } from "@application/roster/getRosterComposition";
 import { ROLE_ORDER, WOW_CLASS_COLOR, WOW_CLASS_LABEL } from "./wowClassConfig";
+import { RefreshButton } from "./RefreshButton";
 
 interface CompositionTableProps {
   composition: RosterComposition;
@@ -28,7 +29,11 @@ export function CompositionTable({ composition }: CompositionTableProps) {
           {t("title")}
         </h2>
       </div>
-      <div className="overflow-x-auto w-full max-w-2xl">
+      <div className="relative w-full max-w-2xl">
+        <div className="absolute top-2 left-full pl-3">
+          <RefreshButton />
+        </div>
+        <div className="overflow-x-auto">
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr>
@@ -73,6 +78,7 @@ export function CompositionTable({ composition }: CompositionTableProps) {
             </tr>
           </tfoot>
         </table>
+        </div>
       </div>
     </div>
   );

@@ -21,4 +21,6 @@ export interface Character {
   wowClass: WowClass;
   role: Role;
   addedById: string;
+  isMain: boolean;
+  blizzardId: string;
 }

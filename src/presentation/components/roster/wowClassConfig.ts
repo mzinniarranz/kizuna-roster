@@ -33,3 +33,15 @@ export const WOW_CLASS_LABEL: Record<WowClass, string> = {
 };
 
 export const ROLE_ORDER: Role[] = ["TANK", "HEALER", "DPS_MELEE", "DPS_CASTER"];
+
+export const ROLE_LABEL: Record<Role, string> = {
+  TANK: "Tank",
+  HEALER: "Healer",
+  DPS_MELEE: "DPS Melee",
+  DPS_CASTER: "DPS Caster",
+};
+
+export const CLASS_ORDER: WowClass[] = [
+  "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN",
+  "MAGE", "WARLOCK", "DRUID", "DEATH_KNIGHT", "MONK", "DEMON_HUNTER", "EVOKER",
+];

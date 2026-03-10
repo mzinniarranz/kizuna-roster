@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { BlizzardCharacter } from "@infrastructure/blizzard/blizzardProfileService";
 
+export type GuildCharacter = BlizzardCharacter;
+
 async function fetchGuildCharacters(): Promise<BlizzardCharacter[]> {
   const res = await fetch("/api/blizzard/guild-characters");
 

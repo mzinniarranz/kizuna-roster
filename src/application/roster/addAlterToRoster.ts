@@ -4,7 +4,7 @@ import { Role } from "@domain/character/Character";
 import { classIdToWowClass } from "@domain/character/wowClassMap";
 import { prisma } from "@infrastructure/db/prisma";
 
-interface AddCharacterInput {
+interface AddAlterInput {
   blizzardId: number;
   name: string;
   realmSlug: string;
@@ -13,8 +13,8 @@ interface AddCharacterInput {
   addedById: string;
 }
 
-export async function addCharacterToRoster(
-  input: AddCharacterInput
+export async function addAlterToRoster(
+  input: AddAlterInput
 ): Promise<{ success: boolean; error?: string }> {
   const wowClass = classIdToWowClass(input.classId);
   if (!wowClass) {
@@ -26,20 +26,6 @@ export async function addCharacterToRoster(
   });
 
   if (existing) {
-    if (existing.addedById === input.addedById && !existing.isMain) {
-      // The character is already an alter of this user — promote it to main
-      await prisma.$transaction([
-        prisma.character.updateMany({
-          where: { addedById: input.addedById },
-          data: { isMain: false },
-        }),
-        prisma.character.update({
-          where: { id: existing.id },
-          data: { isMain: true, role: input.role },
-        }),
-      ]);
-      return { success: true };
-    }
     return { success: false, error: "Character already in roster" };
   }
 
@@ -51,7 +37,7 @@ export async function addCharacterToRoster(
       role: input.role,
       blizzardId: String(input.blizzardId),
       addedById: input.addedById,
-      isMain: true,
+      isMain: false,
     },
   });
 

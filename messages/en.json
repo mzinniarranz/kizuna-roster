@@ -1,7 +1,10 @@
 {
   "RosterGrid": {
     "title": "Raid Roster",
-    "players": "{count, plural, one {# player} other {# players}}"
+    "players": "{count, plural, one {# player} other {# players}}",
+    "refresh": "Refresh roster",
+    "showAlters": "Show alters",
+    "hideAlters": "Hide alters"
   },
   "RoleLabel": {
     "TANK": "Tanks",
@@ -17,5 +20,24 @@
     "title": "Composition",
     "columnClass": "Class",
     "total": "Total"
+  },
+  "Footer": {
+    "license": "MIT License ©2026"
+  },
+  "CharacterSelector": {
+    "yourCharacter": "Your character",
+    "main": "Main",
+    "changeCharacter": "Change your character",
+    "addToRoster": "Add to roster",
+    "adding": "Adding...",
+    "addManually": "+ Add manually",
+    "addManuallyTooltip": "If your character doesn't appear in the list, add it manually.",
+    "characterNamePlaceholder": "Character name",
+    "cancel": "Cancel",
+    "loading": "Loading characters...",
+    "loadErrorTitle": "Could not load guild characters",
+    "promoteToMain": "Promote to main",
+    "alters": "Alters",
+    "addAlter": "Add alter"
   }
 }

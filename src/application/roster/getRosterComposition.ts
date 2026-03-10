@@ -6,7 +6,7 @@ export type RosterComposition = Map<WowClass, Map<Role, number>>;
 export async function getRosterComposition(
   repository: CharacterRepository
 ): Promise<RosterComposition> {
-  const characters = await repository.findAll();
+  const characters = await repository.findAllMains();
   return buildComposition(characters);
 }
 
