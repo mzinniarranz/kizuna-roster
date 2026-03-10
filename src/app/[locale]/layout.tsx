@@ -34,7 +34,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <SessionProviderWrapper>
         <QueryProvider>
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <div className="fixed top-3 right-4 z-50 flex items-center gap-3 px-3 py-1.5 rounded-lg bg-[#090d1a]/90 backdrop-blur-md border border-[#1a2438]">
           <AuthButton />
           <div className="w-px h-4 bg-white/20" />
           <FontSizeSwitcher />

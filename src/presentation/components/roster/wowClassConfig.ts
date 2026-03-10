@@ -34,6 +34,13 @@ export const WOW_CLASS_LABEL: Record<WowClass, string> = {
 
 export const ROLE_ORDER: Role[] = ["TANK", "HEALER", "DPS_MELEE", "DPS_CASTER"];
 
+export const ROLE_COLOR: Record<Role, string> = {
+  TANK: "#4d9de0",
+  HEALER: "#3cb371",
+  DPS_MELEE: "#e05c5c",
+  DPS_CASTER: "#9b72cf",
+};
+
 export const ROLE_LABEL: Record<Role, string> = {
   TANK: "Tank",
   HEALER: "Healer",

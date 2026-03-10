@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { Character, Role } from "@domain/character/Character";
-import { ROLE_ORDER, WOW_CLASS_COLOR, WOW_CLASS_LABEL } from "./wowClassConfig";
+import { ROLE_ORDER, ROLE_COLOR, ROLE_LABEL, WOW_CLASS_COLOR, WOW_CLASS_LABEL } from "./wowClassConfig";
 import { CharacterSelector } from "./CharacterSelector";
 
 interface RosterSidebarProps {
@@ -72,18 +72,28 @@ export function RosterSidebar({ characters, userId }: RosterSidebarProps) {
 
   return (
     <aside className="flex flex-col h-full">
-      <div className="flex flex-col items-center gap-2 px-4 pt-5 pb-4 border-b border-white/10 flex-shrink-0">
+      {/* Header */}
+      <div
+        className="flex flex-col items-center gap-2 px-4 pt-5 pb-4 flex-shrink-0 border-b"
+        style={{
+          background: "linear-gradient(180deg, #0f1a2e 0%, #090d1a 100%)",
+          borderColor: "#1e2d45",
+        }}
+      >
         <Image
           src="/logo.jpg"
           alt="Kizuna"
           width={64}
           height={64}
           className="rounded-full"
+          style={{ boxShadow: "0 0 0 2px #c89b3c44, 0 0 0 4px #c89b3c18" }}
           priority
         />
         <div className="flex items-baseline gap-2">
-          <h1 className="text-base font-bold text-white">{t("title")}</h1>
-          <span className="text-white/40 text-xs">
+          <h1 className="text-base font-bold" style={{ color: "#e8d5a3" }}>
+            {t("title")}
+          </h1>
+          <span className="text-white/30 text-xs">
             {t("players", { count: mainCharacters.length })}
           </span>
         </div>
@@ -106,14 +116,16 @@ export function RosterSidebar({ characters, userId }: RosterSidebarProps) {
                 <button
                   onClick={() => setShowAlters((previous) => !previous)}
                   className={`flex items-center gap-1.5 text-xs transition-colors cursor-pointer ${
-                    showAlters ? "text-white/50 hover:text-white/80" : "text-white/25 hover:text-white/50"
+                    showAlters
+                      ? "text-white/40 hover:text-white/70"
+                      : "text-white/20 hover:text-white/40"
                   }`}
                   aria-label={showAlters ? t("hideAlters") : t("showAlters")}
                 >
                   {showAlters ? <EyeIcon /> : <EyeOffIcon />}
                 </button>
                 <div className="pointer-events-none absolute bottom-full right-0 mb-1.5 hidden group-hover/alters-toggle:block z-10">
-                  <div className="whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white shadow-lg ring-1 ring-white/10">
+                  <div className="whitespace-nowrap rounded bg-[#0f1728] px-2 py-1 text-xs text-white shadow-lg ring-1 ring-white/10">
                     {showAlters ? t("hideAlters") : t("showAlters")}
                   </div>
                 </div>
@@ -124,21 +136,45 @@ export function RosterSidebar({ characters, userId }: RosterSidebarProps) {
           {ROLE_ORDER.map((role) => {
             const group = byRole(role);
             if (group.length === 0) return null;
+            const roleColor = ROLE_COLOR[role];
             return (
-              <div key={role} className="flex flex-col gap-1">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-semibold uppercase tracking-widest text-white/40">
-                    {tRole(role)}
+              <div key={role} className="flex flex-col gap-0.5">
+                {/* Role header */}
+                <div className="flex items-center justify-between mb-1.5 pb-1" style={{ borderBottom: `1px solid ${roleColor}22` }}>
+                  <div className="flex items-center gap-1.5">
+                    <div
+                      className="h-1.5 w-1.5 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: roleColor }}
+                    />
+                    <span
+                      className="text-xs font-semibold uppercase tracking-widest"
+                      style={{ color: `${roleColor}cc` }}
+                    >
+                      {tRole(role)}
+                    </span>
+                  </div>
+                  <span className="text-xs" style={{ color: `${roleColor}66` }}>
+                    {group.length}
                   </span>
-                  <span className="text-xs text-white/30">{group.length}</span>
                 </div>
+
+                {/* Characters */}
                 {group.map((main) => {
                   const alters = characters.filter(
                     (c) => !c.isMain && c.addedById === main.addedById,
                   );
                   return (
                     <div key={main.id} className="flex flex-col">
-                      <div className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-white/5 transition-colors">
+                      <div
+                        className="flex items-center gap-2 px-2 py-1.5 rounded transition-colors cursor-default"
+                        style={{ ["--hover-bg" as string]: `${roleColor}12` }}
+                        onMouseEnter={(e) =>
+                          ((e.currentTarget as HTMLDivElement).style.background = `${roleColor}12`)
+                        }
+                        onMouseLeave={(e) =>
+                          ((e.currentTarget as HTMLDivElement).style.background = "transparent")
+                        }
+                      >
                         <div
                           className="h-1.5 w-1.5 rounded-full flex-shrink-0"
                           style={{ backgroundColor: WOW_CLASS_COLOR[main.wowClass] }}
@@ -152,19 +188,31 @@ export function RosterSidebar({ characters, userId }: RosterSidebarProps) {
                         </span>
                       </div>
                       {showAlters && alters.length > 0 && (
-                        <div className="ml-4 border-l border-white/10 flex flex-col">
+                        <div
+                          className="ml-4 flex flex-col"
+                          style={{ borderLeft: `1px solid ${roleColor}22` }}
+                        >
                           {alters.map((alter) => (
                             <div
                               key={alter.id}
-                              className="flex items-center gap-2 pl-3 pr-2 py-1 rounded-r hover:bg-white/5 transition-colors"
+                              className="flex items-center gap-2 pl-3 pr-2 py-1 rounded-r transition-colors cursor-default"
+                              onMouseEnter={(e) =>
+                                ((e.currentTarget as HTMLDivElement).style.background = `${roleColor}0d`)
+                              }
+                              onMouseLeave={(e) =>
+                                ((e.currentTarget as HTMLDivElement).style.background = "transparent")
+                              }
                             >
                               <div
                                 className="h-1 w-1 rounded-full flex-shrink-0"
                                 style={{ backgroundColor: WOW_CLASS_COLOR[alter.wowClass] }}
                               />
-                              <span className="text-xs text-white/70 truncate">{alter.name}</span>
+                              <span className="text-xs text-white/60 truncate">{alter.name}</span>
+                              <span className="ml-auto text-xs text-white/25 flex-shrink-0">
+                                {alter.role.startsWith("DPS") ? "DPS" : ROLE_LABEL[alter.role]}
+                              </span>
                               <span
-                                className="ml-auto text-xs flex-shrink-0 opacity-60"
+                                className="text-xs flex-shrink-0 opacity-50"
                                 style={{ color: WOW_CLASS_COLOR[alter.wowClass] }}
                               >
                                 {WOW_CLASS_LABEL[alter.wowClass]}
