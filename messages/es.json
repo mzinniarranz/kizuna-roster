@@ -1,0 +1,21 @@
+{
+  "RosterGrid": {
+    "title": "Roster de Raid",
+    "players": "{count, plural, one {# jugador} other {# jugadores}}"
+  },
+  "RoleLabel": {
+    "TANK": "Tanques",
+    "HEALER": "Sanadores",
+    "DPS_MELEE": "DPS Cuerpo a Cuerpo",
+    "DPS_CASTER": "DPS Distancia"
+  },
+  "Auth": {
+    "signIn": "Iniciar sesión con Battle.net",
+    "signOut": "Cerrar sesión"
+  },
+  "CompositionTable": {
+    "title": "Composición",
+    "columnClass": "Clase",
+    "total": "Total"
+  }
+}

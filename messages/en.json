@@ -1,0 +1,21 @@
+{
+  "RosterGrid": {
+    "title": "Raid Roster",
+    "players": "{count, plural, one {# player} other {# players}}"
+  },
+  "RoleLabel": {
+    "TANK": "Tanks",
+    "HEALER": "Healers",
+    "DPS_MELEE": "DPS Melee",
+    "DPS_CASTER": "DPS Caster"
+  },
+  "Auth": {
+    "signIn": "Sign in with Battle.net",
+    "signOut": "Sign out"
+  },
+  "CompositionTable": {
+    "title": "Composition",
+    "columnClass": "Class",
+    "total": "Total"
+  }
+}
