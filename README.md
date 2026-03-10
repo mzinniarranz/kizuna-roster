@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kizuna
 
-## Getting Started
+Gestor de roster para raids de World of Warcraft. Permite añadir personajes manualmente o importarlos desde la guild via API de Blizzard. Autenticación con Battle.net OAuth.
 
-First, run the development server:
+## Stack
+
+- Next.js 15 · React 19 · Tailwind CSS v4
+- Prisma + SQLite (local) / PostgreSQL (producción)
+- NextAuth v5 — proveedor Battle.net
+- next-intl — soporte en/es
+
+## Desarrollo local
+
+### Requisitos
+
+- Node.js 20+
+- pnpm
+
+### Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Variables de entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copia `.env.local` y rellena los valores:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.local .env
+```
 
-## Learn More
+Necesitas una app registrada en [Battle.net Developer Portal](https://develop.battle.net/) para obtener `BLIZZARD_CLIENT_ID` y `BLIZZARD_CLIENT_SECRET`.
 
-To learn more about Next.js, take a look at the following resources:
+Genera `AUTH_SECRET` con:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx auth secret
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Base de datos
 
-## Deploy on Vercel
+```bash
+pnpm prisma migrate dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Arrancar
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm dev
+```
+
+Abre [http://localhost:3000](http://localhost:3000).
