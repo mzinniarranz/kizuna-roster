@@ -137,7 +137,7 @@ export function CharacterSelector({
           </button>
           <div className="pointer-events-none absolute top-full left-0 mt-1.5 hidden group-hover/manual:block z-10">
             <div className="w-44 rounded bg-gray-800 px-2 py-1.5 text-xs text-white/70 shadow-lg ring-1 ring-white/10 leading-snug">
-              If your character doesn't appear in the list, add it manually.
+              If your character doesn&apos;t appear in the list, add it manually.
             </div>
           </div>
         </div>
