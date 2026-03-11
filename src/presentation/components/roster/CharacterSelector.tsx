@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 
 import { Character } from "@domain/character/Character";
@@ -8,6 +10,7 @@ import { useCharacterSelector } from "./useCharacterSelector";
 import { MainCard } from "./MainCard";
 import { AddMainForm } from "./AddMainForm";
 import { AltersSection } from "./AltersSection";
+import { HttpError } from "./useGuildCharacters";
 
 interface CharacterSelectorProps {
   userId: string;
@@ -60,16 +63,21 @@ export function CharacterSelector({
     handlePromoteAlter,
   } = useCharacterSelector({ userId, userMain, userAlters, rosterBlizzardIds });
 
-  if (isLoading) {
+  const isUnauthorized = error instanceof HttpError && error.status === 401;
+
+  useEffect(() => {
+    if (isUnauthorized) {
+      signOut();
+    }
+  }, [isUnauthorized]);
+
+  if (isLoading || isUnauthorized) {
     return <p className="text-xs text-white/40 animate-pulse">{t("loading")}</p>;
   }
 
   if (error) {
     return (
-      <div className="rounded border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-400">
-        <p className="font-semibold">{t("loadErrorTitle")}</p>
-        <p className="mt-1 text-red-400/70">{error.message}</p>
-      </div>
+      <p className="text-xs text-white/40">{t("loadErrorTitle")}</p>
     );
   }
 

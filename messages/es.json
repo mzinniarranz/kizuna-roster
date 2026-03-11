@@ -65,7 +65,7 @@
     "characterNamePlaceholder": "Nombre del personaje",
     "cancel": "Cancelar",
     "loading": "Cargando personajes...",
-    "loadErrorTitle": "No se pudieron cargar los personajes de la hermandad",
+    "loadErrorTitle": "Problema con el servidor, inténtalo de nuevo más tarde.",
     "promoteToMain": "Hacer principal",
     "alters": "Alters",
     "addAlter": "Añadir alter"

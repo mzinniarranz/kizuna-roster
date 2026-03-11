@@ -65,7 +65,7 @@
     "characterNamePlaceholder": "Character name",
     "cancel": "Cancel",
     "loading": "Loading characters...",
-    "loadErrorTitle": "Could not load guild characters",
+    "loadErrorTitle": "Server issue, please try again later.",
     "promoteToMain": "Promote to main",
     "alters": "Alters",
     "addAlter": "Add alter"

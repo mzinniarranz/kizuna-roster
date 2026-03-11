@@ -4,14 +4,18 @@ import type { BlizzardCharacter } from "@infrastructure/blizzard/blizzardProfile
 
 export type GuildCharacter = BlizzardCharacter;
 
+export class HttpError extends Error {
+  constructor(public readonly status: number) {
+    super(`HTTP ${status}`);
+    this.name = "HttpError";
+  }
+}
+
 async function fetchGuildCharacters(): Promise<BlizzardCharacter[]> {
   const res = await fetch("/api/blizzard/guild-characters");
 
   if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    const base = data.error ?? "Failed to fetch guild characters";
-    const detail = data.detail ? ` — ${data.detail}` : "";
-    throw new Error(`[${res.status}] ${base}${detail}`);
+    throw new HttpError(res.status);
   }
 
   return res.json();
