@@ -26,16 +26,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.sub = account.providerAccountId;
       }
       if (profile) {
-        token.battleTag = (profile as { battletag?: string }).battletag;
+        const battleTag = (profile as { battle_tag?: string }).battle_tag;
+        token.battleTag = battleTag;
       }
       if (account && profile) {
-        const battleTag = (profile as { battletag?: string }).battletag;
-        if (battleTag) {
-          await prisma.userProfile.upsert({
-            where: { blizzardId: account.providerAccountId },
-            update: { battleTag },
-            create: { blizzardId: account.providerAccountId, battleTag },
-          });
+        const battleTag = (profile as { battle_tag?: string }).battle_tag;
+        try {
+          if (battleTag) {
+            await prisma.userProfile.upsert({
+              where: { blizzardId: account.providerAccountId },
+              update: { battleTag },
+              create: { blizzardId: account.providerAccountId, battleTag },
+            });
+          } else {
+            console.warn(
+              "[auth] battle_tag no encontrado en profile:",
+              JSON.stringify(profile),
+            );
+          }
+        } catch (error) {
+          console.error("[auth] Error guardando UserProfile:", error);
         }
       }
       return token;
