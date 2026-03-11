@@ -3,12 +3,8 @@ import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 
-import { LocaleSwitcher } from "@presentation/components/LocaleSwitcher";
-import { FontSizeSwitcher } from "@presentation/components/FontSizeSwitcher";
-import { AuthButton } from "@presentation/components/AuthButton";
 import { SessionProviderWrapper } from "@presentation/components/SessionProviderWrapper";
 import { QueryProvider } from "@presentation/components/QueryProvider";
-import { NavBar } from "@presentation/components/NavBar";
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -35,14 +31,6 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <SessionProviderWrapper>
         <QueryProvider>
-        <NavBar />
-        <div className="fixed top-3 right-4 z-50 flex items-center gap-3 px-3 py-1.5 rounded-lg bg-[#090d1a]/90 backdrop-blur-md border border-[#1a2438]">
-          <AuthButton />
-          <div className="w-px h-4 bg-white/20" />
-          <FontSizeSwitcher />
-          <div className="w-px h-4 bg-white/20" />
-          <LocaleSwitcher />
-        </div>
         {children}
         </QueryProvider>
       </SessionProviderWrapper>

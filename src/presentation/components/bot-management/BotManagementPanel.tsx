@@ -27,7 +27,7 @@ export function BotManagementPanel({ initialMessages }: BotManagementPanelProps)
 
   return (
     <div
-      className="min-h-screen bg-[#06090f] px-6 py-10"
+      className="flex-1 overflow-y-auto px-6 py-10"
       style={{
         background:
           "radial-gradient(ellipse 100% 45% at 50% -5%, #0d1e3f 0%, #06090f 60%)",

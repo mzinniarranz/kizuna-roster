@@ -26,7 +26,7 @@ export function NavLinks({ isOfficer }: NavLinksProps) {
   const botHref = `/${locale}/bot-management`;
 
   return (
-    <nav className="fixed top-3 left-4 z-50 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#090d1a]/90 backdrop-blur-md border border-[#1a2438]">
+    <nav className="flex items-center gap-1">
       <Link href={rosterHref} className={linkClass(rosterHref)}>
         {t("roster")}
       </Link>

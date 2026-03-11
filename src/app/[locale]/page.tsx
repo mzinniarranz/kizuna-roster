@@ -7,6 +7,7 @@ import { RosterSidebar } from "@presentation/components/roster/RosterSidebar";
 import { CompositionTable } from "@presentation/components/roster/CompositionTable";
 import { RosterPoller } from "@presentation/components/roster/RosterPoller";
 import { AppFooter } from "@presentation/components/AppFooter";
+import { TopBar } from "@presentation/components/TopBar";
 
 export default async function HomePage() {
   const session = await auth();
@@ -28,16 +29,19 @@ export default async function HomePage() {
           verifiedBlizzardUserIds={[...verifiedUserIds]}
         />
       </div>
-      <main
-        className="flex-1 overflow-y-auto px-10 py-10 flex flex-col gap-10 items-center justify-start"
-        style={{
-          background:
-            "radial-gradient(ellipse 100% 45% at 50% -5%, #0d1e3f 0%, #06090f 60%)",
-        }}
-      >
-        <CompositionTable composition={composition} />
-        <AppFooter />
-      </main>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <TopBar />
+        <main
+          className="flex-1 overflow-y-auto px-10 py-10 flex flex-col gap-10 items-center justify-start"
+          style={{
+            background:
+              "radial-gradient(ellipse 100% 45% at 50% -5%, #0d1e3f 0%, #06090f 60%)",
+          }}
+        >
+          <CompositionTable composition={composition} />
+          <AppFooter />
+        </main>
+      </div>
     </div>
   );
 }

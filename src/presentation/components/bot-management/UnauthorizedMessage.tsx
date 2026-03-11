@@ -7,7 +7,7 @@ export function UnauthorizedMessage() {
   const t = useTranslations("BotManagement");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#06090f]">
+    <div className="flex-1 flex items-center justify-center bg-[#06090f]">
       <div className="flex flex-col items-center gap-4 text-center">
         <span className="text-4xl">🔒</span>
         <h1 className="text-white text-xl font-semibold">{t("unauthorized")}</h1>

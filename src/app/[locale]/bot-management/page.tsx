@@ -3,18 +3,23 @@ import { isGuildOfficer } from "@application/bot-management/isGuildOfficer";
 import { getScheduledMessages } from "@application/bot-management/getScheduledMessages";
 import { BotManagementPanel } from "@presentation/components/bot-management/BotManagementPanel";
 import { UnauthorizedMessage } from "@presentation/components/bot-management/UnauthorizedMessage";
+import { TopBar } from "@presentation/components/TopBar";
 
 export default async function BotManagementPage() {
   const session = await auth();
   const sessionWithId = session as typeof session & { userId?: string };
 
-  if (!sessionWithId?.userId) {
-    return <UnauthorizedMessage />;
-  }
+  const isUnauthorized =
+    !sessionWithId?.userId ||
+    !(await isGuildOfficer(sessionWithId.userId).catch(() => false));
 
-  const officer = await isGuildOfficer(sessionWithId.userId);
-  if (!officer) {
-    return <UnauthorizedMessage />;
+  if (isUnauthorized) {
+    return (
+      <div className="flex flex-col h-screen bg-[#06090f]">
+        <TopBar />
+        <UnauthorizedMessage />
+      </div>
+    );
   }
 
   const messages = await getScheduledMessages();
@@ -25,5 +30,10 @@ export default async function BotManagementPage() {
     createdAt: m.createdAt.toISOString(),
   }));
 
-  return <BotManagementPanel initialMessages={serialized} />;
+  return (
+    <div className="flex flex-col h-screen bg-[#06090f]">
+      <TopBar />
+      <BotManagementPanel initialMessages={serialized} />
+    </div>
+  );
 }
