@@ -8,7 +8,11 @@ const MONTH_KEYS = [
   "july", "august", "september", "october", "november", "december",
 ] as const;
 
-export function MonthCalendar() {
+interface MonthCalendarProps {
+  eventCounts: Record<number, number>;
+}
+
+export function MonthCalendar({ eventCounts }: MonthCalendarProps) {
   const t = useTranslations("Calendar");
   const now = new Date();
   const year = now.getFullYear();
@@ -40,30 +44,42 @@ export function MonthCalendar() {
           </div>
         ))}
 
-        {cells.map((day, index) => (
-          <div
-            key={index}
-            className={`
-              min-h-20 p-2 flex flex-col border-t
-              ${day === null
-                ? "border-transparent"
-                : day === today
-                  ? "border-[#2a5a9a] bg-[#0d1e3f]"
-                  : "border-[#1a2438] bg-[#090d1a] hover:bg-[#0d1525] transition-colors"
-              }
-            `}
-          >
-            {day !== null && (
-              <span
-                className={`text-sm font-semibold ${
-                  day === today ? "text-white" : "text-white/50"
-                }`}
-              >
-                {day}
-              </span>
-            )}
-          </div>
-        ))}
+        {cells.map((day, index) => {
+          const count = day !== null ? eventCounts[day] : undefined;
+          const hasEvent = count !== undefined;
+
+          return (
+            <div
+              key={index}
+              className={`
+                min-h-20 p-2 flex flex-col border-t
+                ${day === null
+                  ? "border-transparent"
+                  : day === today
+                    ? "border-[#2a5a9a] bg-[#0d1e3f]"
+                    : "border-[#1a2438] bg-[#090d1a] hover:bg-[#0d1525] transition-colors"
+                }
+              `}
+            >
+              {day !== null && (
+                <>
+                  <span
+                    className={`text-sm font-semibold ${
+                      day === today ? "text-white" : "text-white/50"
+                    }`}
+                  >
+                    {day}
+                  </span>
+                  {hasEvent && (
+                    <span className="mt-auto self-center text-2xl font-bold text-white/80">
+                      {count}
+                    </span>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

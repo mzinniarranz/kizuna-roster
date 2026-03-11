@@ -9,15 +9,18 @@ import { RosterPoller } from "@presentation/components/roster/RosterPoller";
 import { AppFooter } from "@presentation/components/AppFooter";
 import { TopBar } from "@presentation/components/TopBar";
 import { MonthCalendar } from "@presentation/components/MonthCalendar";
+import { getMonthEventAttendance } from "@application/roster/getMonthEventAttendance";
 
 export default async function HomePage() {
   const session = await auth();
   const sessionWithToken = session as typeof session & { userId?: string };
 
-  const [characters, composition, verifiedUserIds] = await Promise.all([
+  const now = new Date();
+  const [characters, composition, verifiedUserIds, eventCounts] = await Promise.all([
     getRoster(prismaCharacterRepository),
     getRosterComposition(prismaCharacterRepository),
     getVerifiedBlizzardUserIds(),
+    getMonthEventAttendance(now.getUTCFullYear(), now.getUTCMonth()),
   ]);
 
   return (
@@ -39,7 +42,7 @@ export default async function HomePage() {
               "radial-gradient(ellipse 100% 45% at 50% -5%, #0d1e3f 0%, #06090f 60%)",
           }}
         >
-          <MonthCalendar />
+          <MonthCalendar eventCounts={eventCounts} />
           <CompositionTable composition={composition} />
           <AppFooter />
         </main>
