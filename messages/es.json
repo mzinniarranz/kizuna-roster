@@ -45,7 +45,7 @@
     "deleting": "Eliminando...",
     "addAnother": "Añadir otro mensaje",
     "unauthorized": "Acceso restringido",
-    "unauthorizedDetail": "Necesitas rango de hermandad 0 o 1 para acceder a esta sección.",
+    "unauthorizedDetail": "No tienes rango suficiente para acceder a esta sección.",
     "backToHome": "Volver al inicio",
     "days": {
       "monday": "Lunes",
