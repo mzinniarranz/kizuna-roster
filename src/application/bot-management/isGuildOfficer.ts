@@ -9,19 +9,13 @@ export async function isGuildOfficer(blizzardId: string): Promise<boolean> {
     select: { name: true, realmSlug: true },
   });
 
-  if (characters.length === 0) {
-    console.warn(`[isGuildOfficer] Sin personajes en DB para blizzardId=${blizzardId}`);
-    return false;
-  }
+  if (characters.length === 0) return false;
 
   const rosterWithRanks = await getGuildRosterWithRanks();
 
   const ranks = characters
     .map((char) => rosterWithRanks.get(`${char.name.toLowerCase()}|${char.realmSlug.toLowerCase()}`))
     .filter((r): r is number => r !== undefined);
-
-  const highestRank = ranks.length > 0 ? Math.min(...ranks) : null;
-  console.warn(`[isGuildOfficer] blizzardId=${blizzardId} → ranks=${JSON.stringify(ranks)} highestRank=${highestRank}`);
 
   if (
     process.env.NODE_ENV !== "production" &&
