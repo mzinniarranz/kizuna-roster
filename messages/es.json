@@ -27,6 +27,33 @@
   "CharacterCard": {
     "verifiedTooltip": "Discord vinculado"
   },
+  "BotManagement": {
+    "title": "Gestión del Bot",
+    "subtitle": "Programa mensajes para el bot de Discord",
+    "activeMessages": "Mensajes programados",
+    "newMessages": "Añadir mensajes",
+    "noMessages": "No hay mensajes programados.",
+    "messageLabel": "Mensaje {number}",
+    "textPlaceholder": "Texto del mensaje...",
+    "dayOfWeek": "Día de la semana",
+    "time": "Hora (UTC)",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de fin",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "delete": "Eliminar",
+    "deleting": "Eliminando...",
+    "addAnother": "Añadir otro mensaje",
+    "days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    }
+  },
   "CharacterSelector": {
     "yourCharacter": "Tu personaje",
     "main": "Principal",

@@ -27,6 +27,33 @@
   "CharacterCard": {
     "verifiedTooltip": "Discord linked"
   },
+  "BotManagement": {
+    "title": "Bot Management",
+    "subtitle": "Schedule messages for the Discord bot",
+    "activeMessages": "Scheduled messages",
+    "newMessages": "Add messages",
+    "noMessages": "No scheduled messages yet.",
+    "messageLabel": "Message {number}",
+    "textPlaceholder": "Message text...",
+    "dayOfWeek": "Day of week",
+    "time": "Time (UTC)",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "save": "Save",
+    "saving": "Saving...",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "addAnother": "Add another message",
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    }
+  },
   "CharacterSelector": {
     "yourCharacter": "Your character",
     "main": "Main",

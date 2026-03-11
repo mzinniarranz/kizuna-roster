@@ -39,7 +39,12 @@ async function getClientCredentialsToken(): Promise<string> {
   return data.access_token;
 }
 
-async function getGuildRosterMembers(token: string): Promise<Set<string>> {
+interface GuildMember {
+  character: { name: string; realm: { slug: string } };
+  rank: number;
+}
+
+async function fetchGuildRoster(token: string): Promise<GuildMember[]> {
   const url = `https://${REGION}.api.blizzard.com/data/wow/guild/${GUILD_REALM}/kizuna/roster?namespace=profile-${REGION}&locale=${LOCALE}`;
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
@@ -47,14 +52,30 @@ async function getGuildRosterMembers(token: string): Promise<Set<string>> {
   });
 
   const data = await parseJsonOrThrow(res, `Guild roster (${url})`) as {
-    members?: { character: { name: string; realm: { slug: string } } }[];
+    members?: GuildMember[];
   };
 
+  return data.members ?? [];
+}
+
+async function getGuildRosterMembers(token: string): Promise<Set<string>> {
+  const members = await fetchGuildRoster(token);
   return new Set(
-    (data.members ?? []).map(
+    members.map(
       (m) =>
         `${m.character.name.toLowerCase()}|${m.character.realm.slug.toLowerCase()}`
     )
+  );
+}
+
+export async function getGuildRosterWithRanks(): Promise<Map<string, number>> {
+  const token = await getClientCredentialsToken();
+  const members = await fetchGuildRoster(token);
+  return new Map(
+    members.map((m) => [
+      `${m.character.name.toLowerCase()}|${m.character.realm.slug.toLowerCase()}`,
+      m.rank,
+    ])
   );
 }
 

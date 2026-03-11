@@ -64,3 +64,16 @@ enum AttendanceStatus {
   YES
   NO
 }
+
+model BotScheduledMessage {
+  id                  String   @id @default(cuid())
+  text                String
+  dayOfWeek           Int
+  hour                Int
+  minute              Int
+  startDate           DateTime
+  endDate             DateTime
+  channelId           String?
+  createdByBlizzardId String
+  createdAt           DateTime @default(now())
+}
