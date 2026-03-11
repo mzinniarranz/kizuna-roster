@@ -45,7 +45,7 @@
     "deleting": "Deleting...",
     "addAnother": "Add another message",
     "unauthorized": "Access restricted",
-    "unauthorizedDetail": "You need guild rank 1 or 2 to access this section.",
+    "unauthorizedDetail": "You need guild rank 0 or 1 to access this section.",
     "backToHome": "Back to home",
     "days": {
       "monday": "Monday",
