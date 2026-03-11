@@ -8,6 +8,7 @@ import { CompositionTable } from "@presentation/components/roster/CompositionTab
 import { RosterPoller } from "@presentation/components/roster/RosterPoller";
 import { AppFooter } from "@presentation/components/AppFooter";
 import { TopBar } from "@presentation/components/TopBar";
+import { MonthCalendar } from "@presentation/components/MonthCalendar";
 
 export default async function HomePage() {
   const session = await auth();
@@ -38,6 +39,7 @@ export default async function HomePage() {
               "radial-gradient(ellipse 100% 45% at 50% -5%, #0d1e3f 0%, #06090f 60%)",
           }}
         >
+          <MonthCalendar />
           <CompositionTable composition={composition} />
           <AppFooter />
         </main>
