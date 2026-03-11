@@ -1,4 +1,8 @@
 {
+  "Nav": {
+    "roster": "Roster",
+    "botManagement": "Bot"
+  },
   "RosterGrid": {
     "title": "Raid Roster",
     "players": "{count, plural, one {# player} other {# players}}",
