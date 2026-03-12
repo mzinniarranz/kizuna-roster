@@ -49,6 +49,7 @@ async function fetchGuildRoster(token: string): Promise<GuildMember[]> {
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
+    signal: AbortSignal.timeout(8000),
   });
 
   const data = await parseJsonOrThrow(res, `Guild roster (${url})`) as {

@@ -15,7 +15,12 @@ export async function deleteScheduledMessage(
     return { success: false, error: "Unauthorized" };
   }
 
-  const officer = await isGuildOfficer(sessionWithId.userId);
+  let officer: boolean;
+  try {
+    officer = await isGuildOfficer(sessionWithId.userId);
+  } catch {
+    return { success: false, error: "Could not verify officer rank. Blizzard API unavailable, try again later." };
+  }
   if (!officer) {
     return { success: false, error: "Forbidden" };
   }

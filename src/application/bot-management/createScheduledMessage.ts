@@ -10,6 +10,7 @@ const THREE_MONTHS_MS = 3 * 30 * 24 * 60 * 60 * 1000;
 
 interface CreateInput {
   text: string;
+  date: string;
   dayOfWeek: number;
   hour: number;
   minute: number;
@@ -28,7 +29,12 @@ export async function createScheduledMessage(
     return { success: false, error: "Unauthorized" };
   }
 
-  const officer = await isGuildOfficer(sessionWithId.userId);
+  let officer: boolean;
+  try {
+    officer = await isGuildOfficer(sessionWithId.userId);
+  } catch {
+    return { success: false, error: "Could not verify officer rank. Blizzard API unavailable, try again later." };
+  }
   if (!officer) {
     return { success: false, error: "Forbidden" };
   }
@@ -48,9 +54,15 @@ export async function createScheduledMessage(
     return { success: false, error: "Maximum duration is 3 months" };
   }
 
+  const eventDate = new Date(input.date);
+  if (Number.isNaN(eventDate.getTime())) {
+    return { success: false, error: "Invalid event date" };
+  }
+
   const message = await prisma.botScheduledMessage.create({
     data: {
       text: input.text.trim(),
+      date: eventDate,
       dayOfWeek: input.dayOfWeek,
       hour: input.hour,
       minute: input.minute,

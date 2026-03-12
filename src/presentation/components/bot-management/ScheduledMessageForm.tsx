@@ -59,6 +59,16 @@ export function ScheduledMessageForm({
         className="w-full rounded-md border border-[#1a2438] bg-[#06090f] px-3 py-2 text-sm text-white placeholder:text-white/30 resize-none focus:outline-none focus:border-[#2a3a58]"
       />
 
+      <div className="flex flex-col gap-1">
+        <label className="text-white/50 text-xs">{t("eventDate")}</label>
+        <input
+          type="date"
+          value={form.date}
+          onChange={(e) => onChange("date", e.target.value)}
+          className="rounded-md border border-[#1a2438] bg-[#06090f] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#2a3a58]"
+        />
+      </div>
+
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-1">
           <label className="text-white/50 text-xs">{t("dayOfWeek")}</label>

@@ -34,6 +34,7 @@ export function ScheduledMessageList({
   return (
     <ul className="flex flex-col gap-3">
       {messages.map((message) => {
+        const eventDate = new Date(message.date).toLocaleDateString();
         const time = `${String(message.hour).padStart(2, "0")}:${String(message.minute).padStart(2, "0")}`;
         const startDate = new Date(message.startDate).toLocaleDateString();
         const endDate = new Date(message.endDate).toLocaleDateString();
@@ -50,7 +51,7 @@ export function ScheduledMessageList({
                 {message.text}
               </p>
               <p className="text-white/50 text-xs mt-1">
-                {t(`days.${dayKey}`)} · {time} · {startDate} → {endDate}
+                {eventDate} · {t(`days.${dayKey}`)} · {time} UTC · {startDate} → {endDate}
               </p>
             </div>
             <button

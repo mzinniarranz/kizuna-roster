@@ -10,12 +10,18 @@ export async function saveAttendance(payload: AttendancePayload): Promise<void> 
   const { discordId, eventId, status } = payload;
 
   const link = await prisma.discordLink.findUnique({ where: { discordId } });
-  if (!link) return;
+  if (!link) {
+    console.warn(`[saveAttendance] No Discord link for discordId=${discordId}`);
+    return;
+  }
 
   const character = await prisma.character.findFirst({
     where: { addedById: link.blizzardUserId, isMain: true },
   });
-  if (!character) return;
+  if (!character) {
+    console.warn(`[saveAttendance] No main character for blizzardUserId=${link.blizzardUserId}`);
+    return;
+  }
 
   await prisma.attendance.upsert({
     where: { eventId_characterId: { eventId, characterId: character.id } },

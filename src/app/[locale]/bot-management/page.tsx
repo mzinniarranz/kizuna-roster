@@ -23,8 +23,10 @@ export default async function BotManagementPage() {
   }
 
   const messages = await getScheduledMessages();
+
   const serialized = messages.map((m) => ({
     ...m,
+    date: m.date.toISOString(),
     startDate: m.startDate.toISOString(),
     endDate: m.endDate.toISOString(),
     createdAt: m.createdAt.toISOString(),

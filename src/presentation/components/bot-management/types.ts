@@ -1,6 +1,7 @@
 export interface ScheduledMessageData {
   id: string;
   text: string;
+  date: string;
   dayOfWeek: number;
   hour: number;
   minute: number;
@@ -13,6 +14,7 @@ export interface ScheduledMessageData {
 
 export interface MessageFormState {
   text: string;
+  date: string;
   dayOfWeek: number;
   time: string;
   startDate: string;
@@ -26,6 +28,7 @@ export function emptyForm(): MessageFormState {
     .slice(0, 10);
   return {
     text: "",
+    date: today,
     dayOfWeek: 1,
     time: "19:00",
     startDate: today,

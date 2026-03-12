@@ -57,6 +57,7 @@ export function useBotManagement(initialMessages: ScheduledMessageData[]) {
     startTransition(async () => {
       const result = await createScheduledMessage({
         text: form.text,
+        date: form.date,
         dayOfWeek: form.dayOfWeek,
         hour,
         minute,
