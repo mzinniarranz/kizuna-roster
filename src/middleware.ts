@@ -1,11 +1,13 @@
-import { auth } from "@/auth";
+import NextAuth from "next-auth";
 import createIntlMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
-import { NextRequest } from "next/server";
 
+import { authConfig } from "./auth.config";
+import { routing } from "./i18n/routing";
+
+const { auth } = NextAuth(authConfig);
 const intlMiddleware = createIntlMiddleware(routing);
 
-export default auth((request: NextRequest & { auth: unknown }) => {
+export default auth((request) => {
   return intlMiddleware(request);
 });
 
