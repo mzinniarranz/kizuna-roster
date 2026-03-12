@@ -7,7 +7,7 @@ export interface UpcomingEvent {
 }
 
 export async function getUpcomingEvents(): Promise<UpcomingEvent[]> {
-  const events = await prisma.raidEvent.findMany({
+  const events = await prisma.botScheduledMessage.findMany({
     where: { date: { gte: new Date() } },
     orderBy: { date: "asc" },
     take: 5,
@@ -15,7 +15,7 @@ export async function getUpcomingEvents(): Promise<UpcomingEvent[]> {
 
   return events.map((e) => ({
     id: e.id,
-    title: e.title,
+    title: e.text,
     date: e.date.toISOString(),
   }));
 }

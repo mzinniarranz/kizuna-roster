@@ -10,11 +10,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const body = await request.json() as {
     discordId: string;
-    eventId: string;
+    scheduledMessageId: string;
     status: "YES" | "NO";
   };
 
-  if (!body.discordId || !body.eventId || !body.status) {
+  if (!body.discordId || !body.scheduledMessageId || !body.status) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
   }
 
